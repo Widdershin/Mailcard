@@ -4,20 +4,40 @@ html, body
     height: 100%; 
     margin: 0px; 
     padding: 0px; 
+    background-color: #73CC56;
+    font-family: Source Sans Pro;
 }
 
 .card
 {
     background-color: #dddddd;
     border-radius: 1px;
-    border: 1em;
-    padding: 1em;
-    margin: 1em;
+    padding: .5em;
+    margin: 0.2em;
     max-width: 10em;
+    height: 3em;
 }
 
 .card-column
 {
     background-color: #aaaaaa;
-    width: 15%;
+    float: left;
+    position: relative;
+    max-width: 250px;
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+.header
+{
+    background-color: #D1D1D1;
+    margin-top: -1.5em;
+    padding-top: .1em;
+    padding-left: .3em;
+}
+
+.column-title
+{
+    position: relative;
+    padding: .2em;
 }
