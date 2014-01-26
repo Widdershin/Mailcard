@@ -1,0 +1,23 @@
+
+html, body 
+{
+    height: 100%; 
+    margin: 0px; 
+    padding: 0px; 
+}
+
+.card
+{
+    background-color: #dddddd;
+    border-radius: 1px;
+    border: 1em;
+    padding: 1em;
+    margin: 1em;
+    max-width: 10em;
+}
+
+.card-column
+{
+    background-color: #aaaaaa;
+    width: 15%;
+}
