@@ -14,8 +14,7 @@ html, body
     border-radius: 1px;
     padding: .5em;
     margin: 0.2em;
-    max-width: 10em;
-    height: 3em;
+    height: auto;
 }
 
 .card-column
@@ -23,7 +22,7 @@ html, body
     background-color: #aaaaaa;
     float: left;
     position: relative;
-    max-width: 250px;
+    width: 320px;
     margin-top: 1em;
     margin-left: 1em;
 }

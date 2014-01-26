@@ -1,8 +1,13 @@
 $(document).ready(function () {
-    $(".card-column").append("<div class='card'>test</div>")
-    $(".card-column").append("<div class='card'>blah blah</div>")
-    $(".card-column").append("<div class='card'>blah blah</div>")
-    $(".card-column").append("<div class='card'>blah foo</div>")
-    $(".card-column").append("<div class='card'>this one is a bit longer</div>")
     $(".card-column").sortable();
+    
+    $.getJSON('/api/messages', function ( data ) {
+        var messageHTML = "";
+        $.each(data["messages"], function (key, val) {
+            console.log(val);
+            messageHTML += "<div class='card'>" + val["from"]["name"] + "</br>" + val["subject"] + "</div>";
+        })
+
+        $(".card-column").append(messageHTML);
+    });
 });
