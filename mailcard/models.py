@@ -1,5 +1,4 @@
-from __init__ import db
-from imbox import Imbox
+from __init__ import db, MailManager
 
 
 class User(db.Model):
@@ -17,25 +16,29 @@ class User(db.Model):
         return '<User %r>' % self.email
 
     def check_emails(self):
-        inbox = Imbox('imap.gmail.com',
+        mail = MailManager('imap.gmail.com',
                       username=self.email,
-                      password=self.smtp_password,
-                      ssl=True)
+                      password=self.smtp_password)
 
-        for n, (uuid, data) in enumerate(inbox.messages()):
-            if n > 100:
-                break
+        print mail.list_folders()
 
-            message = Message(uuid, data)
-            db.session.add(message)
+        # for n, (uuid, data) in enumerate(inbox.messages()):
+        #     if n > 5:
+        #         print "Breaking"
+        #         break
 
-        db.session.commit()
+        #     message = Message(uuid, data)
+
+        #     print n, message
+        #     db.session.add(message)
+
+        # db.session.commit()
 
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(db.String(36), unique=True)
-    json = db.Column(db.UnicodeText)
+    json = db.Column(db.PickleType)
 
     thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'))
 
