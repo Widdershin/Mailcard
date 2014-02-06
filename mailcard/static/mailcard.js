@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".card-column").sortable();
+    $(".column-cards").sortable();
     
     $.getJSON('/api/messages', function ( data ) {
         var messageHTML = "";
@@ -8,6 +8,6 @@ $(document).ready(function () {
             messageHTML += "<div class='card'>" + val["from"]["name"] + "</br>" + val["subject"] + "</div>";
         })
 
-        $(".card-column").append(messageHTML);
+        $(".column-cards").append(messageHTML);
     });
 });

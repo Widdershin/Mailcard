@@ -1,4 +1,4 @@
-from __init__ import app, models
+from __init__ import app, context_io
 from flask import render_template, jsonify
 
 
@@ -9,24 +9,22 @@ def main():
 
 @app.route('/api/messages')
 def messages():
-    unread_messages = {"messages": map(lambda x: x.json,
-                                       models.Message.query.all())}
+    user_account = context_io.get_accounts(email="ncwjohnstone@gmail.com")[0]
 
-    print unread_messages
+    messages = user_account.get_messages()[:2]
 
-    return jsonify(**unread_messages)
+    map(lambda x: x.get(), messages)
+
+    print messages
+    print messages[0].subject, messages[0].addresses
+
+    print map(construct_message, messages)
+
+    return jsonify(messages=map(construct_message, messages))
 
 
 def construct_message(message):
-    return {"subject": message.subject, "from": dict(*message.sent_from)}
-
-
-@app.route('/api/messages/update/<user>')
-def check_messages(user):
-    print "Checking messages for {}".format(user)
-    db_user = models.User.query.filter_by(email=user).first_or_404()
-
-    db_user.check_emails()
+    return {"subject": message.subject, "from": message.addresses["from"]}
 
 
 if __name__ == '__main__':
