@@ -39,3 +39,5 @@ test.db
 
 .idea
 .sublime-*
+*.sublime-project
+*.sublime-workspace
