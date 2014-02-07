@@ -1,8 +1,10 @@
 from __init__ import app, context_io, db, models, login_manager, forms
-from flask import render_template, jsonify
+from flask import render_template, jsonify, redirect
+from flask.ext.login import login_user, login_required
 
 
 @app.route('/')
+@login_required
 def main():
     return render_template("main.html")
 
@@ -27,6 +29,22 @@ def update_messages():
 def messages():
     messages = map(lambda x: x.message, models.Message.query.all())
     return jsonify(messages=map(construct_message, messages))
+
+
+@app.route('/login', methods=('GET', 'POST'))
+def login():
+    form = forms.LoginForm()
+
+    if form.validate_on_submit():
+        user = models.User.query.filter_by(
+            email=form.email.data).first_or_404()
+
+        if user.check_password(form.password.data):
+            login_user(user)
+
+        return redirect('/')
+
+    return render_template("login.html", form=form)
 
 
 def construct_message(message):

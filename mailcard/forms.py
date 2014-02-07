@@ -1,4 +1,5 @@
-from wtforms import Form, TextField, PasswordField, validators
+from flask_wtf import Form
+from wtforms import TextField, PasswordField, validators
 
 
 class RegistrationForm(Form):

@@ -1,0 +1,11 @@
+{% from '_utils.html' import render_field %}
+<!DOCTYPE html>
+<html lang="en">
+    <head></head>
+    <body>
+    <form method=post action='/login'>
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+    </form>
+    </body>
+</html>
