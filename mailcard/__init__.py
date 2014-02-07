@@ -1,8 +1,9 @@
 import contextio
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask.ext.migrate import Migrate
 import os
+import sys
 
 context_io = contextio.ContextIO(
     consumer_key=os.environ["CONTEXT_CONSUMER_KEY"],
@@ -16,5 +17,7 @@ db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 
+sys.path.append("..\\")
+
 import models
-import views
+from views import *

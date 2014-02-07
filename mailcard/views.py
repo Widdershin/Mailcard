@@ -6,13 +6,13 @@ from flask import render_template, jsonify
 def main():
     return render_template("main.html")
 
-@app.route('/api/messages/update')
+@app.route('/api/messages/update', methods=['POST'])
 def update_messages():
     user_account = context_io.get_accounts(email="ncwjohnstone@gmail.com")[0]
     
-    messages = filter(lambda x: models.Message.query.filter_by(message_id=x.message_id).first() is None, user_account.get_messages()[:3])
+    messages = filter(lambda x: models.Message.query.filter_by(message_id=x.message_id).first() is None, user_account.get_messages()[:10])
     map(lambda x: x.get(), messages)
-    new_db_messages = map(lambda x: Message(x.message_id, x.subject, x), messages)
+    new_db_messages = map(lambda x: models.Message(x.message_id, x.subject, x), messages)
     map(db.session.add, new_db_messages)
     db.session.commit()
 
