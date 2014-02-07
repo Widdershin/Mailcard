@@ -24,4 +24,5 @@ login_manager.init_app(app)
 sys.path.append("..\\")
 
 import models
+import forms
 from views import *

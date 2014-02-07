@@ -1,4 +1,4 @@
-from __init__ import app, context_io, db, models, login_manager
+from __init__ import app, context_io, db, models, login_manager, forms
 from flask import render_template, jsonify
 
 
