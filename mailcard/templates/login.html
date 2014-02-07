@@ -4,8 +4,10 @@
     <head></head>
     <body>
     <form method=post action='/login'>
+        {{ form.hidden_tag() }}
         {{ render_field(form.email) }}
         {{ render_field(form.password) }}
+        <button type="submit">Login</button>
     </form>
     </body>
 </html>
