@@ -17,7 +17,7 @@ from __init__ import db
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message_id = db.Column(db.String(120), unique=True)
-    subject = db.Column(db.String(80), unique=True)
+    subject = db.Column(db.String(80))
     message = db.Column(db.PickleType())
 
     def __init__(self, message_id, subject, message):
