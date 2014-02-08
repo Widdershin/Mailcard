@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="static/mailcard.js"></script>
-    <script src="static/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-    <link href="static/style.css" type="text/css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400' rel='stylesheet' type='text/css'>
-  </head>
-  <body>
-    <div class="header"><h2>Mailcard</h2> <a href="#" id="update">Update</a></div>
-    <div class="card-column">
-      <div class="column-title">Unread</div>
-      <div class="column-cards"></div>
-    </div>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block head %}
+  <script src="static/mailcard.js"></script>
+  <script src="static/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+  <link href="static/app.css" type="text/css" rel="stylesheet" />
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block body %}
+  <div class="header">
+    <h2>Mailcard</h2>
+    <a id="update" href="#">Update</a>
+    <p> Logged in as {{current_user}} - <a href="/logout">Logout</a></p>
+  </div>
+
+  <div class="card-column">
+    <div class="column-title">Unread</div>
+    <div class="column-cards"></div>
+  </div>
+{% endblock %}

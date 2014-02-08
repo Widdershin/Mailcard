@@ -22,6 +22,9 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return '<User %r>' % self.email
 
+    def __str__(self):
+        return self.email
+
 
 class MailAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)

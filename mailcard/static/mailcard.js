@@ -21,5 +21,5 @@ $(document).ready(function () {
             $(".column-cards").empty();
         });
         displayMessages();
-    })
+    });
 });

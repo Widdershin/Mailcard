@@ -1,6 +1,7 @@
 from __init__ import app, context_io, db, models, login_manager, forms
-from flask import render_template, jsonify, redirect, url_for
-from flask.ext.login import login_user, login_required
+from flask import render_template, jsonify, redirect
+from flask.ext.login import (login_user, login_required,
+                             current_user, logout_user)
 
 
 @app.route('/')
@@ -10,8 +11,9 @@ def main():
 
 
 @app.route('/api/messages/update', methods=['POST'])
+@login_required
 def update_messages():
-    user_account = context_io.get_accounts(email="ncwjohnstone@gmail.com")[0]
+    user_account = context_io.get_accounts(email=current_user.email)[0]
 
     messages = filter(lambda x: models.Message.query.filter_by(
                       message_id=x.message_id).first() is None,
@@ -26,6 +28,7 @@ def update_messages():
 
 
 @app.route('/api/messages')
+@login_required
 def messages():
     messages = map(lambda x: x.message, models.Message.query.all())
     return jsonify(messages=map(construct_message, messages))
@@ -47,6 +50,14 @@ def login():
     return render_template("login.html", form=form)
 
 
+@app.route('/logout', methods=('GET', 'POST'))
+@login_required
+def logout():
+    logout_user()
+
+    return redirect('/')
+
+
 def construct_message(message):
     return {"subject": message.subject, "from": message.addresses["from"]}
 
@@ -54,3 +65,12 @@ def construct_message(message):
 @login_manager.user_loader
 def load_user(userid):
     return models.User.query.get(int(userid))
+
+
+@app.context_processor
+def add_current_user():
+    if current_user.is_authenticated():
+        returned_current_user = current_user
+    else:
+        returned_current_user = None
+    return {"current_user": returned_current_user}
