@@ -3,6 +3,7 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
 from flask.ext.login import LoginManager
+from flask.ext.restful import Api
 import os
 import sys
 
@@ -11,6 +12,8 @@ context_io = contextio.ContextIO(
     consumer_secret=os.environ["CONTEXT_SECRET_KEY"])
 
 app = Flask(__name__)
+
+api = Api(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'postgres://mailcard-admin:test@localhost/mailcard'
@@ -28,4 +31,5 @@ sys.path.append("..\\")
 
 import models
 import forms
+import api
 from views import *
